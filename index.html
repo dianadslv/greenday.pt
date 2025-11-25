@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GreenDay.lol — CBD & Bem-estar</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#9ae6b4;--muted:#98a2b3}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,#071025 0%, #081426 50%, #071021 100%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .container{width:95%;max-width:1100px;padding:28px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#0ea5a8,#4ade80);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042024}
+    h1{margin:0;font-size:28px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .card{background:rgba(255,255,255,0.02);padding:20px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+    .shop-list{display:flex;flex-direction:column;gap:14px}
+    .product{display:flex;gap:12px;align-items:center}
+    .thumb{width:92px;height:72px;background:linear-gradient(135deg,#06212a,#08313b);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    .btn{background:var(--accent);color:#032019;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .agegate{position:fixed;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.92) 0%, rgba(2,6,23,0.96) 100%);display:flex;align-items:center;justify-content:center;z-index:999}
+    .agecard{width:min(640px,92%);background:linear-gradient(180deg,#07172a,#0a1d30);padding:26px;border-radius:14px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+    .agecard h2{margin:0 0 8px 0;font-size:22px}
+    .agecard p{color:var(--muted);margin:0 0 18px}
+    .choices{display:flex;gap:12px;justify-content:center}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cfe4f0;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .videomodal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:1000}
+    .videomodal.active{display:flex}
+    .videobox{width:min(960px,95%);max-width:1000px;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);position:relative}
+    .closex{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.06);border-radius:8px;padding:6px 8px;cursor:pointer;color:#fff;font-weight:600}
+    .caption{padding:12px;color:var(--muted);font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">GD</div>
+      <div>
+        <h1>GreenDay.lol</h1>
+        <div style="color:var(--muted);font-size:13px">CBD, bem-estar e vibes tranquilas</div>
+      </div>
+    </header>
+    <main class="hero">
+      <section class="card">
+        <h3 style="margin-top:0">Produtos em destaque</h3>
+        <div class="shop-list">
+          <div class="product">
+            <div class="thumb">Óleo</div>
+            <div style="flex:1">
+              <div style="font-weight:700">Óleo full-spectrum 10%</div>
+              <div style="color:var(--muted);font-size:13px">30ml — Relaxação suave</div>
+            </div>
+            <div><button class="btn">Comprar</button></div>
+          </div>
+        </div>
+        <footer>Site fictício para demo — conteúdo para maiores de 18 anos.</footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="agegate" id="agegate">
+    <div class="agecard">
+      <h2>Tem mais de 18 anos?</h2>
+      <p>Produtos aqui destinam-se apenas a maiores. Confirma para entrar.</p>
+      <div class="choices">
+        <button class="btn" id="btnYes">Sim — Tenho 18+</button>
+        <button class="btn-ghost" id="btnNo">Não — Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="videomodal" id="videomodal">
+    <div class="videobox">
+      <button class="closex" id="closeVideo">Fechar ✕</button>
+      <iframe id="rickIframe" width="100%" height="520" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <div class="caption">Ups... parece que encontrou algo inesperado 😉</div>
+    </div>
+  </div>
+
+  <script>
+    const agegate = document.getElementById('agegate');
+    const videomodal = document.getElementById('videomodal');
+    const rickIframe = document.getElementById('rickIframe');
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const closeVideo = document.getElementById('closeVideo');
+    const rickUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
+
+    function showRickroll(){
+      rickIframe.src = rickUrl;
+      videomodal.classList.add('active');
+      agegate.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    }
+
+    btnYes.onclick = showRickroll;
+    btnNo.onclick = showRickroll;
+
+    closeVideo.onclick = () => {
+      rickIframe.src = '';
+      videomodal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+  </script>
+</body>
+</html>
